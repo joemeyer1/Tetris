@@ -44,7 +44,7 @@ class Tetris:
 			if self.check_death():
 				print ("GAME OVER")
 				print ("Score: ", self.score)
-				return #self.__init__(self.width)
+				return self.__init__(self.width)
 			# active_squares are now ground
 			self.new_shape()
 		else:
