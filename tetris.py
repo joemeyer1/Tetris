@@ -82,6 +82,7 @@ class Tetris:
 
 	# HELPER FUNCTIONS:
 
+	# returns ground+active_squares
 	def full_board(self):
 		board = self.ground.copy()
 		for (y, x) in self.active_squares():
@@ -188,6 +189,7 @@ class Tetris:
 		return False
 
 	# helper for step
+	# adds active_squares to ground
 	def update_ground(self):
 		for (y,x) in self.active_squares():
 			self.ground[y][x] = 1
@@ -195,6 +197,7 @@ class Tetris:
 
 
 	# all below is helpers for active_squares()
+	# returns line pattern
 	def line_offset(self):
 
 		if self.shape_position%2:
@@ -204,9 +207,11 @@ class Tetris:
 			# vertical
 			return np.array([	(i-3,0) for i in range(4)	])
 
+	# returns sq pattern
 	def sq_offset(self):
 		return np.array([ (y,x) for y in [-1,0] for x in [0,1]])
 
+	# returns T pattern
 	def T_offset(self):
 
 		if self.shape_position is 0:
@@ -226,6 +231,7 @@ class Tetris:
 								(-1,0), (-1,1),
 								(0, 0)	])
 
+	# returns fwdL pattern
 	def fwdL_offset(self):
 		if self.shape_position is 0:
 			return np.array([	(-1,0)] +
@@ -245,6 +251,7 @@ class Tetris:
 								(-1,0),
 								(0, 0)	])
 
+	# returns bkwdL pattern
 	def bkwdL_offset(self):
 		if self.shape_position is 0:
 			return np.array([					(-1,2)] +
