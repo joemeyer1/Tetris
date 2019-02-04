@@ -1,9 +1,12 @@
 # Tetris
 
 
-To initialize:    "t = Tetris()" creates tetris game 't'
+To initialize:
+
+        - "t = Tetris()" creates tetris game 't'
 
 User functions:
+
         - t.step() steps fwd in time
         
         - t.print_board() prints board
