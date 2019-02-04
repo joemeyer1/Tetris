@@ -80,6 +80,8 @@ class Tetris:
 		self.print_board()
 
 
+
+
 	# HELPER FUNCTIONS:
 
 	# returns ground+active_squares
@@ -181,7 +183,7 @@ class Tetris:
 
 
 	# helper for step
-	# ->True iff active-square in top (invisible) row
+	# ->True iff active-square above board
 	def check_death(self):
 		for (y, x) in self.active_squares():
 			if y<0:
@@ -199,7 +201,6 @@ class Tetris:
 	# all below is helpers for active_squares()
 	# returns line pattern
 	def line_offset(self):
-
 		if self.shape_position%2:
 			# horizontal
 			return np.array([	(0,i) for i in range(4)	])
@@ -213,7 +214,6 @@ class Tetris:
 
 	# returns T pattern
 	def T_offset(self):
-
 		if self.shape_position is 0:
 			return np.array([	(-1,1)] + 
 						[(0,i) for i in range(3)	])
@@ -226,6 +226,7 @@ class Tetris:
 		elif self.shape_position is 2:
 			return np.array([	(-1,i) for i in range(3)] +
 										[(0,1)	])
+
 		elif self.shape_position is 3:
 			return np.array([	(-2,0),
 								(-1,0), (-1,1),
@@ -259,8 +260,8 @@ class Tetris:
 
 		elif self.shape_position is 1:
 			return np.array([	(-2,0), (-2,1),
-										 (-1,1),
-										 (0, 1)	])
+										(-1,1),
+										(0, 1)	])
 
 		elif self.shape_position is 2:
 			return np.array([	(-1,0), (-1,1), (-1,2),
