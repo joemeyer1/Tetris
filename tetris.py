@@ -44,7 +44,7 @@ class Tetris:
 			if self.check_death():
 				print ("GAME OVER")
 				print ("Score: ", self.score)
-				return self.__init__(self.width)
+				return #self.__init__(self.width)
 			# active_squares are now ground
 			self.new_shape()
 		else:
@@ -128,9 +128,9 @@ class Tetris:
 		elif self.TYPE_MAP[self.shape_type] is "fwd_L":
 			offset = self.fwdL_offset()
 			
-
 		elif self.TYPE_MAP[self.shape_type] is "bkwd_L":
 			offset = self.bkwdL_offset()
+
 		else:
 			raise Exception("Shape not recognized.")
 
@@ -153,7 +153,7 @@ class Tetris:
 	def bottom_reached(self):
 		active_squares = self.active_squares()
 		for (y,x) in active_squares:
-			if (y+1,x) not in active_squares:
+			if y>-2 and (y+1,x) not in active_squares:
 				if (y+1 == self.height) or (self.ground[y+1][x]):
 					return True
 		return False
@@ -194,7 +194,8 @@ class Tetris:
 	# adds active_squares to ground
 	def update_ground(self):
 		for (y,x) in self.active_squares():
-			self.ground[y][x] = 1
+			if y>=0:
+				self.ground[y][x] = 1
 
 
 
