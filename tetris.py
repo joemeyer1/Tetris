@@ -31,8 +31,7 @@ class Tetris:
 	# USER FUNCTIONS:
 
 	def print_board(self):
-		board = self.full_board()
-		print(board)
+		print(self.full_board())
 
 
 	# moves time fwd 1 step
