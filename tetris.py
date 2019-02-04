@@ -30,7 +30,7 @@ class Tetris:
 
 	def print_board(self):
 		board = self.full_board()
-		print(board[1:self.height+1])
+		print(board)
 
 
 	# moves time fwd 1 step
@@ -101,7 +101,7 @@ class Tetris:
 			shape_width = 4
 
 		# shape coordinates (bottom-left corner of shape)
-		self.shape_loc = [0, random.randint(0,self.width-shape_width)]
+		self.shape_loc = [-1, random.randint(0,self.width-shape_width)]
 		# shape rotations
 		self.shape_position = 0
 
@@ -140,11 +140,8 @@ class Tetris:
 	def make_ground(self):
 		# ground[0][0] is top left corner 
 		# 1 indiciates sq is part of ground
-		# top/bottom rows of ground are invisible to user
-		self.ground = np.zeros((self.height+2, self.width), dtype=int)
-		# top row is for initializing shapes
-		# bottom row is invisible ground
-		self.ground[-1]=np.ones(self.width, dtype=int)
+		self.ground = np.zeros((self.height, self.width), dtype=int)
+
 
 
 	# helper for step
@@ -153,15 +150,15 @@ class Tetris:
 		active_squares = self.active_squares()
 		for (y,x) in active_squares:
 			if (y+1,x) not in active_squares:
-				if self.ground[y+1][x]:
+				if (y+1 == self.height) or (self.ground[y+1][x]):
 					return True
 		return False
 
 	# helper for step
 	# removes any full lines/shift top down
 	def check_lines(self):
-		row = self.height
-		while row>0:
+		row = self.height-1
+		while row>=0:
 			while self.row_all_ones(row):
 				self.score += 100
 				self.remove_row(row)
@@ -185,7 +182,7 @@ class Tetris:
 	# ->True iff active-square in top (invisible) row
 	def check_death(self):
 		for (y, x) in self.active_squares():
-			if y<1:
+			if y<0:
 				return True
 		return False
 
