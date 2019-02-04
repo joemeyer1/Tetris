@@ -18,6 +18,8 @@ class Tetris:
 	# make board + a shape
 	def __init__(self, width=10):
 
+		assert width>3, "width must be > 3"
+
 		random.seed()
 		self.width = width
 		self.height = width*2
