@@ -1,8 +1,14 @@
 
+# code by Joe Meyer
+
+
+
 
 import numpy as np
 import random
 
+# to take (optional) width as sys arg
+import sys
 
 
 class Tetris:
@@ -11,8 +17,8 @@ class Tetris:
 	TYPE_MAP = {	0 : "line",
 					1 : "square",
 					2 : "T",
-					3 : "fwd_L",
-					4 : "bkwd_L",}
+					3 : "bkwd_L",
+					4 : "fwd_L",}
 
 
 	# make board + a shape
@@ -31,7 +37,7 @@ class Tetris:
 	# USER FUNCTIONS:
 
 	def print_board(self):
-		print(self.full_board())
+		print(self.full_board(), '\n')
 
 
 	# moves time fwd 1 step
@@ -45,17 +51,20 @@ class Tetris:
 				print ("GAME OVER")
 				print ("Score: ", self.score)
 				return self.__init__(self.width)
-			# active_squares are now ground
 			self.new_shape()
 		else:
+			# move shape down 1
 			self.shape_loc[0] += 1
 		self.print_board()
 
 
 	# rotates active shape
 	def rotate(self):
+		# rotate shape
 		self.shape_position = (self.shape_position + 1) % 4
+		# check if rotation is valid ...
 		for (y,x) in self.active_squares():
+			# ... if rotation invalid undo rotation
 			if not 0<=x<self.width:
 				self.shape_position = (self.shape_position - 1) % 4
 				break
@@ -88,7 +97,7 @@ class Tetris:
 	def full_board(self):
 		board = self.ground.copy()
 		for (y, x) in self.active_squares():
-			if y>=0:
+			if y >= 0:
 				board[y][x] = 1
 		return board
 
@@ -107,7 +116,8 @@ class Tetris:
 		# shape coordinates (bottom-left corner of shape)
 		self.shape_loc = [-1, random.randint(0,self.width-shape_width)]
 		# shape rotations
-		self.shape_position = 0
+		self.shape_position = random.randint(0,3)
+
 
 	# returns array of coordinates of active shape
 	def active_squares(self):
@@ -153,7 +163,7 @@ class Tetris:
 	def bottom_reached(self):
 		active_squares = self.active_squares()
 		for (y,x) in active_squares:
-			if y>-2 and (y+1,x) not in active_squares:
+			if y > -2 and (y+1,x) not in active_squares:
 				if (y+1 == self.height) or (self.ground[y+1][x]):
 					return True
 		return False
@@ -162,7 +172,7 @@ class Tetris:
 	# removes any full lines/shift top down
 	def check_lines(self):
 		row = self.height-1
-		while row>=0:
+		while row >= 0:
 			while self.row_all_ones(row):
 				self.score += 100
 				self.remove_row(row)
@@ -194,7 +204,7 @@ class Tetris:
 	# adds active_squares to ground
 	def update_ground(self):
 		for (y,x) in self.active_squares():
-			if y>=0:
+			if y >= 0:
 				self.ground[y][x] = 1
 
 
@@ -202,7 +212,7 @@ class Tetris:
 	# all below is helpers for active_squares()
 	# returns line pattern
 	def line_offset(self):
-		if self.shape_position%2:
+		if self.shape_position % 2:
 			# horizontal
 			return np.array([	(0,i) for i in range(4)	])
 		else:
@@ -251,7 +261,7 @@ class Tetris:
 		elif self.shape_position is 3:
 			return np.array([	(-2,0), (-2,1),
 								(-1,0),
-								(0, 0)	])
+								(0, 0)					])
 
 	# returns bkwdL pattern
 	def bkwdL_offset(self):
@@ -266,7 +276,7 @@ class Tetris:
 
 		elif self.shape_position is 2:
 			return np.array([	(-1,0), (-1,1), (-1,2),
-								(0, 0)	])
+								(0, 0) ])
 
 		elif self.shape_position is 3:
 			return np.array([	(-2,0),
@@ -276,6 +286,60 @@ class Tetris:
 				
 
 
+	# SHORTCUTS
+
+	def a(self):
+		self.left()
+
+	def d(self):
+		self.right()
+
+	def w(self):
+		self.rotate()
+
+	def s(self):
+		self.step()
+
+	def p(self):
+		self.print_board()
+
+
+
+
+# wraps I/O
+def main():
+	# default width is 4
+	width = 4
+	# you can also pass width as system arg
+	if sys.argv[-1].isdigit():
+		width = int(sys.argv[-1])
+
+	# create tetris obj
+	t = Tetris(width)
+	# manipulate it forever based on user input
+	# ('q' to quit)
+	while True:
+		commands = input()
+
+		for command in commands:
+
+			if command is 'a':
+				t.left()
+			elif command is 'd':
+				t.right()
+			elif command is 'w':
+				t.rotate()
+			elif command is 's':
+				t.step()
+			elif command is 'p':
+				t.print_board()
+			elif command is 'q':
+				return
+			else:
+				print ("Command not recognized.")
+				print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit() }")
+
+main()
 
 
 
