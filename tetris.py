@@ -85,13 +85,16 @@ class Tetris:
 
 	# helper for left/right
 	# moves shape if legal
-	def move(self, direction = 'left'):
+	def move(self, direction):
 		if direction is 'left':
 			direction_offset = -1
 			edge = 0
-		else:
+		elif direction is 'right':
 			direction_offset = 1
 			edge = self.width-1
+		else:
+			print("direction must be 'left' or 'right'")
+			raise Exception("direction not recognized")
 
 		can_move = True
 		for (y,x) in self.active_squares():
