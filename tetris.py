@@ -330,10 +330,11 @@ def main():
 	t = Tetris(width)
 	# manipulate it forever based on user input
 	# ('q' to quit)
-	while True:
 
-		t.print_board()
-		print_instructions()
+	t.print_board()
+	print_instructions()
+
+	while True:
 
 		commands = input()
 
