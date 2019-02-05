@@ -315,7 +315,7 @@ class Tetris:
 
 
 def print_instructions():
-	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit() }")
+	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit(), x:print_score() }")
 
 
 # wraps I/O
@@ -350,6 +350,8 @@ def main():
 				t.step()
 			elif command is 'p':
 				t.print_board()
+			elif command is 'x':
+				print(t.score, '\n')
 			elif command is 'q':
 				return
 			else:
