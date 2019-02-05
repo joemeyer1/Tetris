@@ -352,7 +352,7 @@ def main():
 			elif command is 'p':
 				t.print_board()
 			elif command is 'x':
-				print(t.score, '\n')
+				print("score: ", t.score, '\n')
 			elif command is 'q':
 				return
 			else:
