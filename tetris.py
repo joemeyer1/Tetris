@@ -72,7 +72,8 @@ class Tetris:
 
 	# moves shape left 1
 	def left(self):
-		if self.shape_loc[1] > 0:
+		y, x = self.shape_loc
+		if x > 0 and not self.ground[y][x-1]:
 			self.shape_loc[1] -= 1
 		self.print_board()
 
@@ -80,8 +81,7 @@ class Tetris:
 	def right(self):
 		can_move = True
 		for (y,x) in self.active_squares():
-			if x == self.width-1:
-				# already at edge
+			if x == self.width-1 or self.ground[y][x+1]:
 				can_move = False
 				break
 		if can_move:
@@ -305,6 +305,9 @@ class Tetris:
 
 
 
+def print_instructions():
+	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit() }")
+
 
 # wraps I/O
 def main():
@@ -319,6 +322,10 @@ def main():
 	# manipulate it forever based on user input
 	# ('q' to quit)
 	while True:
+
+		t.print_board()
+		print_instructions()
+
 		commands = input()
 
 		for command in commands:
@@ -337,7 +344,7 @@ def main():
 				return
 			else:
 				print ("Command not recognized.")
-				print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit() }")
+				print_instructions()
 
 main()
 
