@@ -292,8 +292,6 @@ class Tetris:
 								(-1,0),
 								(0, 0), (0,1)	])
 
-				
-
 
 	# SHORTCUTS
 
@@ -315,7 +313,7 @@ class Tetris:
 
 
 def print_instructions():
-	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), q:quit(), x:print_score() }")
+	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }")
 
 
 # wraps I/O
