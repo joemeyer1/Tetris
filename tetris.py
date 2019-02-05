@@ -37,7 +37,7 @@ class Tetris:
 	# USER FUNCTIONS:
 
 	def print_board(self):
-		print(self.full_board(), '\n')
+		print(self.full_board())
 
 
 	# moves time fwd 1 step
@@ -334,6 +334,10 @@ def main():
 
 	t.print_board()
 	print_instructions()
+        # Python 2.7 compatibility hack
+        if hasattr(__builtins__, 'raw_input'):
+                input=raw_input
+
 
 	while True:
 
@@ -352,7 +356,7 @@ def main():
 			elif command is 'p':
 				t.print_board()
 			elif command is 'x':
-				print("score: ", t.score, '\n')
+				print("score: ", t.score)
 			elif command is 'q':
 				return
 			else:
