@@ -65,7 +65,7 @@ class Tetris:
 		# check if rotation is valid ...
 		for (y,x) in self.active_squares():
 			# ... if rotation invalid undo rotation
-			if not 0<=x<self.width:
+			if (not 0 <= x < self.width) or (y >= 0 and self.ground[y][x]):
 				self.shape_position = (self.shape_position - 1) % 4
 				break
 		self.print_board()
