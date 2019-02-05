@@ -94,7 +94,7 @@ class Tetris:
 			edge = self.width-1
 		else:
 			print("direction must be 'left' or 'right'")
-			raise Exception("direction not recognized")
+			raise Exception("direction '{}' not recognized".format(direction))
 
 		can_move = True
 		for (y,x) in self.active_squares():
