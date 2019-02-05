@@ -19,6 +19,7 @@ User functions:
 
 
 - Currently initializes automatically (for human user), plays through I/O.
+
         - pass optional sys arg 'width' when calling program (i.e. 'python tetris.py 10')
 
 - I/O instructions: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }
