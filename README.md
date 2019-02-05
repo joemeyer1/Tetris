@@ -16,3 +16,8 @@ User functions:
         - t.left() moves current shape left
         
         - t.right() moves current shape right
+
+
+- Currently initializes automatically (for human user), plays through I/O.
+
+- I/O instructions: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }
