@@ -72,26 +72,35 @@ class Tetris:
 
 	# moves shape left 1
 	def left(self):
-		y, x = self.shape_loc
-		if x > 0 and not self.ground[y][x-1]:
-			self.shape_loc[1] -= 1
-		self.print_board()
+		self.move('left')
 
 	# moves shape right 1
 	def right(self):
-		can_move = True
-		for (y,x) in self.active_squares():
-			if x == self.width-1 or self.ground[y][x+1]:
-				can_move = False
-				break
-		if can_move:
-			self.shape_loc[1] += 1
-		self.print_board()
+		self.move('right')
 
 
 
 
 	# HELPER FUNCTIONS:
+
+	# helper for left/right
+	# moves shape if legal
+	def move(self, direction = 'left'):
+		if direction is 'left':
+			direction_offset = -1
+			edge = 0
+		else:
+			direction_offset = 1
+			edge = self.width-1
+
+		can_move = True
+		for (y,x) in self.active_squares():
+			if x == edge or (y >= 0 and self.ground[y][x + direction_offset]):
+				can_move = False
+				break
+		if can_move:
+			self.shape_loc[1] += direction_offset
+		self.print_board()
 
 	# returns ground+active_squares
 	def full_board(self):
