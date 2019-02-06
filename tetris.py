@@ -184,10 +184,12 @@ class Tetris:
 	# removes any full lines/shift top down
 	def check_lines(self):
 		row = self.height-1
+		removed_rows = 0
 		while row >= 0:
 			while self.row_all_ones(row):
 				self.score += 100
-				self.remove_row(row)
+				self.remove_row(row, removed_rows)
+				removed_rows += 1
 			row -= 1
 
 	# helper for check_lines
@@ -200,8 +202,14 @@ class Tetris:
 
 	# helper for check_lines
 	# removes row, shifts top down
-	def remove_row(self, row):
-		self.ground[:row+1] = np.array([ np.zeros(self.width)] + [line for line in self.ground[:row] ])
+	def remove_row(self, row, removed_rows):
+
+		new_top_row = np.zeros(self.width)
+		for square in self.active_squares():
+			if square[0]+removed_rows+1 == 0:
+				new_top_row[square[1]] = 1
+		ground_above_row = [line for line in self.ground[:row] ]
+		self.ground[:row+1] = np.array([ new_top_row] + ground_above_row)
 
 
 	# helper for step
