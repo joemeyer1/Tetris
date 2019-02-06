@@ -334,10 +334,6 @@ def main():
 
 	t.print_board()
 	print_instructions()
-        # Python 2.7 compatibility hack
-        if hasattr(__builtins__, 'raw_input'):
-                input=raw_input
-
 
 	while True:
 
@@ -362,6 +358,11 @@ def main():
 			else:
 				print ("Command not recognized.")
 				print_instructions()
+
+# leaving this in main() yields error
+# Python 2.7 compatibility hack
+if hasattr(__builtins__, 'raw_input'):
+	input=raw_input
 
 main()
 
