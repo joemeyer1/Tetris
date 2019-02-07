@@ -327,6 +327,11 @@ def print_instructions():
 	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }")
 
 
+# leaving this in main() yields error
+# Python 2.7 compatibility hack
+if hasattr(__builtins__, 'raw_input'):
+	input=raw_input
+
 # wraps I/O
 def main():
 	# default width is 4
@@ -367,10 +372,6 @@ def main():
 				print ("Command not recognized.")
 				print_instructions()
 
-# leaving this in main() yields error
-# Python 2.7 compatibility hack
-if hasattr(__builtins__, 'raw_input'):
-	input=raw_input
 
 main()
 
