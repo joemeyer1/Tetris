@@ -46,8 +46,8 @@ class Tetris:
 		self.score += 1
 		if self.bottom_reached():
 			self.update_ground()
-			self.check_lines()
-			if self.check_death():
+			removed_rows = self.check_lines()
+			if self.check_death(removed_rows):
 				print ("GAME OVER")
 				print ("Score: ", self.score)
 				return self.__init__(self.width)
@@ -191,6 +191,7 @@ class Tetris:
 				self.remove_row(row, removed_rows)
 				removed_rows += 1
 			row -= 1
+		return removed_rows
 
 	# helper for check_lines
 	# ->True iff row all ones
@@ -214,9 +215,9 @@ class Tetris:
 
 	# helper for step
 	# ->True iff active-square above board
-	def check_death(self):
+	def check_death(self, removed_rows):
 		for (y, x) in self.active_squares():
-			if y<0:
+			if y + removed_rows < 0:
 				return True
 		return False
 
