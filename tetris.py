@@ -20,6 +20,13 @@ class Tetris:
 					3 : "bkwd_L",
 					4 : "fwd_L",}
 
+	ACTION_MAP = {	'a': self.left(),
+					'd': self.right(),
+					'w': self.rotate(),
+					's': self.step(),
+					'p': self.print_board(),
+					'x': print("score: ", self.score)}
+
 
 	# make board + a shape
 	def __init__(self, width=10):
@@ -56,6 +63,10 @@ class Tetris:
 			# move shape down 1
 			self.shape_loc[0] += 1
 		self.print_board()
+
+	def take_action(self, action):
+		self.ACTION_MAP[action]
+		self.step()
 
 
 	# rotates active shape
@@ -324,57 +335,57 @@ class Tetris:
 
 
 
-def print_instructions():
-	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }")
+# def print_instructions():
+# 	print("options: { a:left(), d:right(), w:rotate(), s:step(), p:print_board(), x:print_score(), q:quit() }")
 
 
-# leaving this in main() yields error
-# Python 2.7 compatibility hack
-if hasattr(__builtins__, 'raw_input'):
-	input=raw_input
+# # leaving this in main() yields error
+# # Python 2.7 compatibility hack
+# if hasattr(__builtins__, 'raw_input'):
+# 	input=raw_input
 
-# wraps I/O
-def main():
-	# default width is 4
-	width = 4
-	# you can also pass width as system arg
-	if sys.argv[-1].isdigit():
-		width = int(sys.argv[-1])
+# # wraps I/O
+# def main():
+# 	# default width is 4
+# 	width = 4
+# 	# you can also pass width as system arg
+# 	if sys.argv[-1].isdigit():
+# 		width = int(sys.argv[-1])
 
-	# create tetris obj
-	t = Tetris(width)
-	# manipulate it forever based on user input
-	# ('q' to quit)
+# 	# create tetris obj
+# 	t = Tetris(width)
+# 	# manipulate it forever based on user input
+# 	# ('q' to quit)
 
-	t.print_board()
-	print_instructions()
+# 	t.print_board()
+# 	print_instructions()
 
-	while True:
+# 	while True:
 
-		commands = input()
+# 		commands = input()
 
-		for command in commands:
+# 		for command in commands:
 
-			if command is 'a':
-				t.left()
-			elif command is 'd':
-				t.right()
-			elif command is 'w':
-				t.rotate()
-			elif command is 's':
-				t.step()
-			elif command is 'p':
-				t.print_board()
-			elif command is 'x':
-				print("score: ", t.score)
-			elif command is 'q':
-				return
-			else:
-				print ("Command not recognized.")
-				print_instructions()
+# 			if command is 'a':
+# 				t.left()
+# 			elif command is 'd':
+# 				t.right()
+# 			elif command is 'w':
+# 				t.rotate()
+# 			elif command is 's':
+# 				t.step()
+# 			elif command is 'p':
+# 				t.print_board()
+# 			elif command is 'x':
+# 				print("score: ", t.score)
+# 			elif command is 'q':
+# 				return
+# 			else:
+# 				print ("Command not recognized.")
+# 				print_instructions()
 
 
-main()
+# main()
 
 
 
