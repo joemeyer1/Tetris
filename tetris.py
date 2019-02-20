@@ -20,12 +20,7 @@ class Tetris:
 					3 : "bkwd_L",
 					4 : "fwd_L",}
 
-	ACTION_MAP = {	'a': self.left(),
-					'd': self.right(),
-					'w': self.rotate(),
-					's': self.step(),
-					'p': self.print_board(),
-					'x': print("score: ", self.score)}
+
 
 
 	# make board + a shape
@@ -39,6 +34,12 @@ class Tetris:
 		self.make_ground()
 		self.new_shape()
 		self.score = 0
+
+		self.ACTION_MAP = {	'a': self.left,
+						'd': self.right,
+						'w': self.rotate,
+						's': self.step,
+						'p': self.print_board}
 
 
 	# USER FUNCTIONS:
@@ -65,7 +66,7 @@ class Tetris:
 		self.print_board()
 
 	def take_action(self, action):
-		self.ACTION_MAP[action]
+		self.ACTION_MAP[action]()
 		self.step()
 
 

@@ -9,13 +9,13 @@ class FooEnv(gym.Env):
 	metadata = {'render.modes': ['human']}
 
 	def __init__(self):
-		t = Tetris()
+		self.t = Tetris()
 
 	def step(self, action):
-		t.take_action(action)
+		self.t.take_action(action)
 		
 	def reset(self):
-		t = Tetris()
+		self.t = Tetris()
 		
 	def render(self, mode='human', close=False):
 		pass
